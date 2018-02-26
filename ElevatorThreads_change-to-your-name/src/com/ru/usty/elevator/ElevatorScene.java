@@ -14,23 +14,26 @@ import java.util.concurrent.Semaphore;
 public class ElevatorScene {
 	
 	//Semaphore sem einn thradur getur bedid a og annar losad, tha gerum vid thessa thar sem allir geta haft adgang ad henni:
-	public static Semaphore semaphore1;
+	public static Semaphore semaphore1; // in a haed 1
+	public static Semaphore semaphoreOut; // ut a haed 2
+
+	public static int maxCapacity = 1;
+	public int numOfPeepInElevator;
+	public static int numOfFloor;
 	
 	public static ElevatorScene scene;
-
 	public  static Semaphore personCountMutex;
-
 	public static  Semaphore elevatorWaitMustex;
 
 	public static boolean elevatorsMAyDie;
 
 	//TO SPEED THINGS UP WHEN TESTING,
 	//feel free to change this.  It will be changed during grading
-	public static final int VISUALIZATION_WAIT_TIME = 500;  //milliseconds
+	public static final int VISUALIZATION_WAIT_TIME = 900;  //milliseconds
 
 	private int numberOfFloors;
 	private int numberOfElevators;
-    private  Thread elevatorThread = null;
+    private Thread elevatorThread = null;
 
 	ArrayList<Integer> personCount; //use if you want but
 									//throw away and
@@ -45,7 +48,7 @@ public class ElevatorScene {
 	// þegar kallað er í restartScene þá er samfóran búin til, ef thad er kallað aftur á restartScene
 	// þá er semafóran búin til upp á nytt sem ný semafóra
 	public void restartScene(int numberOfFloors, int numberOfElevators) {
-
+        		
 	    elevatorsMAyDie = true;
 
 	    if (elevatorThread != null) {
@@ -56,40 +59,27 @@ public class ElevatorScene {
                     e.printStackTrace();
                 }
             }
-
-        }
-
-
+        }    
+	    //numOfPeepInElevator = 0;
+	    numOfFloor = 0;
+	   	 
         elevatorsMAyDie = false;
-
 		scene = this;
 		// Eftir af thad er kallad i restartScene er thetta adgengilegt alls stadar fra:
+		
+		// restarta badum semaphorum
 		semaphore1 = new Semaphore(0); // 0 er fjöldi permita sem eru opin i upphafi
+		semaphoreOut = new Semaphore(0);
+		
         personCountMutex = new Semaphore(1);
         elevatorWaitMustex = new Semaphore(1);
-
-
+        
+		Thread thread = new Thread(new Elevator()); // gera svipad fyrir Elevator klasann
+		thread.start();
 
 		// Profa hvort Person thradurinn er ad gera thad sem hann a ad vera ad gera akkurat nuna
 		// en vid viljum ekki enda med thetta svona:
-		elevatorThread = new Thread(new Runnable() {
-
-			@Override
-			public void run() {
-
-				while (true) {
-                    if (ElevatorScene.elevatorsMAyDie) {
-                        return;
-                    }
-
-                    //Test thradur bidur a einni semaphoru og er sleppt af henni, fakelyftan okkar:
-                    for(int i=0; i<16; i++) {
-                        ElevatorScene.semaphore1.release(); //signal
-                    }
-                }
-			}				
-		});
-		elevatorThread.start();
+        
 		
 		/**
 		 * Important to add code here to make new
@@ -129,7 +119,7 @@ public class ElevatorScene {
 	public Thread addPerson(int sourceFloor, int destinationFloor) {
 
 		// person er runnable:
-		Thread thread = new Thread(new Person(sourceFloor, destinationFloor));
+		Thread thread = new Thread(new Person(sourceFloor, destinationFloor)); // gera svipad fyrir Elevator klasann
 		thread.start();
 		
 		
@@ -142,34 +132,27 @@ public class ElevatorScene {
 		 * (you don't have to join() yourself)
 		 */
 
-		//Thetta var inni og er nuna out:
-		//return null;  //this means that the testSuite will not wait for the threads to finish
-		IncreamentNumberOfPeopleWaitingAtFloor(sourceFloor);
+		increamentNumberOfPeopleWaitingAtFloor(sourceFloor);
 		return thread; // Thegar ad thad er tha kallad a restartScene thurfum vid ad ganga fra Elevat
 	}
 
 	//Base function: definition must not change, but add your code
 	public int getCurrentFloorForElevator(int elevator) {
 
-		//dumb code, replace it!
-		return 1;
+		return numOfFloor;
 	}
 
 	//Base function: definition must not change, but add your code
 	public int getNumberOfPeopleInElevator(int elevator) {
 
-
+		/*
         try {
             personCountMutex.acquire(elevator);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        //dumb code, replace it!
-		switch(elevator) {
-		case 1: return 1;
-		case 2: return 4;
-		default: return 3;
-		}
+		*/
+		return numOfPeepInElevator;
 	}
 
 	//Base function: definition must not change, but add your code
@@ -189,7 +172,7 @@ public class ElevatorScene {
         }
 	}
 
-    public void IncreamentNumberOfPeopleWaitingAtFloor(int floor) {
+    public void increamentNumberOfPeopleWaitingAtFloor(int floor) {
 
         try {
             personCountMutex.acquire();
@@ -261,7 +244,17 @@ public class ElevatorScene {
 			return 0;
 		}
 	}
-
+	
+	// spurning ad gera foll fyrir ad incrementa og decrementa peopleinelevator and floor
+	// thurfum ekki ad hugsa um int elevotor thad er bara 0 allavega i bili
+	
+	public int incremeantPeopleInElevator(int numOfPeepInElevator) {
+		return this.numOfPeepInElevator++;
+	}
+	
+	public int decreamentPeopleInElevator(int numOfPeepInElevator) {
+		return this.numOfPeepInElevator--;
+	}
 
 }
 

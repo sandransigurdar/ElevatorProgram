@@ -12,18 +12,29 @@ public class Person implements Runnable {
 	public void run() {
 		// Tjekkum her a semaphorunni:
 		try {
-
-		    ElevatorScene.elevatorWaitMustex.acquire();
+		    //ElevatorScene.elevatorWaitMustex.acquire();
 			ElevatorScene.semaphore1.acquire(); // wait
-            ElevatorScene.elevatorWaitMustex.release();
+            //ElevatorScene.elevatorWaitMustex.release();
 			
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} 
-
+		
 
 		ElevatorScene.scene.decrementNumberOfPeopleWaitingAtFloor(src);
+		ElevatorScene.scene.incremeantPeopleInElevator(0);
+		// increment people in elevator sendum 0 med
+		
+		//aquire semaphore2
+		try {
+			ElevatorScene.semaphoreOut.acquire(0);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		ElevatorScene.scene.personExitsAtFloor(dst);
 		
 		System.out.println("Person Thread released");
 	}
