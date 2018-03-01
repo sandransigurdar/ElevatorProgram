@@ -1,5 +1,7 @@
 package com.ru.usty.elevator;
 
+import org.lwjgl.Sys;
+
 import java.util.ArrayList;
 import java.util.concurrent.Semaphore;
 
@@ -17,8 +19,8 @@ public class ElevatorScene {
 	public static Semaphore semaphore1; // in a haed 1
 	public static Semaphore semaphoreOut; // ut a haed 2
 
-	public static int maxCapacity = 1;
-	public int numOfPeepInElevator;
+	public static int maxCapacity = 6;
+	public static int numOfPeepInElevator = 0;
 	public static int numOfFloor;
 	
 	public static ElevatorScene scene;
@@ -29,7 +31,7 @@ public class ElevatorScene {
 
 	//TO SPEED THINGS UP WHEN TESTING,
 	//feel free to change this.  It will be changed during grading
-	public static final int VISUALIZATION_WAIT_TIME = 900;  //milliseconds
+	public static final int VISUALIZATION_WAIT_TIME = 600;  //milliseconds
 
 	private int numberOfFloors;
 	private int numberOfElevators;
@@ -45,8 +47,8 @@ public class ElevatorScene {
 	//Base function: definition must not change
 	//Necessary to add your code in this one
 	// Elevator thraedir verda til i thessu falli
-	// þegar kallað er í restartScene þá er samfóran búin til, ef thad er kallað aftur á restartScene
-	// þá er semafóran búin til upp á nytt sem ný semafóra
+	// tegar kallad er a restartScene ta er samforan buin til, ef thad er kallad aftur a restartScene
+	// ta er semaforan buin til upp a nytt sem na semafora
 	public void restartScene(int numberOfFloors, int numberOfElevators) {
         		
 	    elevatorsMAyDie = true;
@@ -68,7 +70,7 @@ public class ElevatorScene {
 		// Eftir af thad er kallad i restartScene er thetta adgengilegt alls stadar fra:
 		
 		// restarta badum semaphorum
-		semaphore1 = new Semaphore(0); // 0 er fjöldi permita sem eru opin i upphafi
+		semaphore1 = new Semaphore(0); // 0 er fjï¿½ldi permita sem eru opin i upphafi
 		semaphoreOut = new Semaphore(0);
 		
         personCountMutex = new Semaphore(1);
@@ -115,7 +117,7 @@ public class ElevatorScene {
 	//Base function: definition must not change
 	//Necessary to add your code in this one
 	// Allir Person thraedir verda til i thessu falli
-	// Kalllað í þetta þegar kerfið kallar og segir: það er ný manneskja er komin í kerfið
+	// Kalllaï¿½ ï¿½ ï¿½etta ï¿½egar kerfiï¿½ kallar og segir: ï¿½aï¿½ er nï¿½ manneskja er komin ï¿½ kerfiï¿½
 	public Thread addPerson(int sourceFloor, int destinationFloor) {
 
 		// person er runnable:
@@ -152,6 +154,7 @@ public class ElevatorScene {
             e.printStackTrace();
         }
 		*/
+		//System.out.println(numOfPeepInElevator);
 		return numOfPeepInElevator;
 	}
 
@@ -248,12 +251,12 @@ public class ElevatorScene {
 	// spurning ad gera foll fyrir ad incrementa og decrementa peopleinelevator and floor
 	// thurfum ekki ad hugsa um int elevotor thad er bara 0 allavega i bili
 	
-	public int incremeantPeopleInElevator(int numOfPeepInElevator) {
-		return this.numOfPeepInElevator++;
+	public void incremeantPeopleInElevator(int numOfPeepInElevator) {
+		this.numOfPeepInElevator++;
 	}
 	
-	public int decreamentPeopleInElevator(int numOfPeepInElevator) {
-		return this.numOfPeepInElevator--;
+	public void decreamentPeopleInElevator(int numOfPeepInElevator) {
+		this.numOfPeepInElevator--;
 	}
 
 }
