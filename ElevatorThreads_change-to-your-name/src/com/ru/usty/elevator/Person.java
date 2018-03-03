@@ -29,8 +29,9 @@ public class Person implements Runnable {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		ElevatorScene.scene.personExitsAtFloor(dst);
 		ElevatorScene.scene.decreamentPeopleInElevator(0);
+		ElevatorScene.scene.personExitsAtFloor(dst);
+
 		
 		System.out.println("Person Thread released");
 	}

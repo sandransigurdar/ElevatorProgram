@@ -22,7 +22,10 @@ public class ElevatorScene {
 	public static int maxCapacity = 6;
 	public static int numOfPeepInElevator = 0;
 	public static int numOfFloor;
-	
+
+	//public static int floorArr[] = new int[ElevatorScene.scene.getNumberOfFloors()];
+	//public static Semaphore semaphoresArr[] = new Semaphore[4];
+
 	public static ElevatorScene scene;
 	public  static Semaphore personCountMutex;
 	public static  Semaphore elevatorWaitMustex;
@@ -188,6 +191,7 @@ public class ElevatorScene {
 	
 	//Base function: definition must not change, but add your code if needed
 	public int getNumberOfFloors() {
+		System.out.println(numberOfFloors);
 		return numberOfFloors;
 	}
 
