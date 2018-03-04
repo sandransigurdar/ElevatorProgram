@@ -18,12 +18,7 @@ public class Elevator implements Runnable {
 	        if (ElevatorScene.elevatorsMAyDie) {
 	            return;
 	        }
-
-	        if (ElevatorScene.scene.getNumberOfFloors() == currFloor + 1){
-	            currFloor = 0;
-            }
             System.out.println(currFloor);
-            ElevatorScene.numOfFloor = currFloor;
             int spaces1 = ElevatorScene.maxCapacity - ElevatorScene.scene.getNumberOfPeopleInElevator(0);
 	        for (int i = 0; i < spaces1 ; i++) {
 	            ElevatorScene.semaphoresArrIn[currFloor].release();
@@ -50,16 +45,6 @@ public class Elevator implements Runnable {
                 e.printStackTrace();
             }
 
-
-            currFloor++;
-            ElevatorScene.numOfFloor = currFloor;
-
-            try {
-                Thread.sleep(ElevatorScene.VISUALIZATION_WAIT_TIME/4);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-
             int people = ElevatorScene.scene.getNumberOfPeopleInElevator(0);
             for (int i = 0; i < people ; i++) {
                 ElevatorScene.semaphoresArrOut[currFloor].release();
@@ -71,8 +56,32 @@ public class Elevator implements Runnable {
                 e.printStackTrace();
             }
 
-            System.out.println(currFloor);
+            spaces1 = ElevatorScene.maxCapacity - ElevatorScene.scene.getNumberOfPeopleInElevator(0);
+            for (int i = 0; i < spaces1; i++) {
+                try {
+                    ElevatorScene.semaphoresArrIn[currFloor].acquire();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
 
+            try {
+                Thread.sleep(ElevatorScene.VISUALIZATION_WAIT_TIME/4);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            changeFloor(currFloor);
+            ElevatorScene.numOfFloor = currFloor;
         }
 	}
+
+    public void changeFloor(int floor) {
+        if (currFloor == ElevatorScene.scene.getNumberOfFloors() - 1) {
+            Elevator.currFloor = 0;
+        }
+        else {
+            Elevator.currFloor++;
+        }
+
+    }
 }
