@@ -16,8 +16,8 @@ import java.util.concurrent.Semaphore;
 public class ElevatorScene {
 	
 	//Semaphore sem einn thradur getur bedid a og annar losad, tha gerum vid thessa thar sem allir geta haft adgang ad henni:
-	public static Semaphore semaphore1; // in a haed 1
-	public static Semaphore semaphoreOut; // ut a haed 2
+	//public static Semaphore semaphore1; // in a haed 1
+	//public static Semaphore semaphoreOut; // ut a haed 2
 
 	public static int maxCapacity = 6;
 	public static int numOfPeepInElevator = 0;
@@ -169,7 +169,7 @@ public class ElevatorScene {
             e.printStackTrace();
         }
 		*/
-		System.out.println(numOfPeepInElevator);
+		//System.out.println(numOfPeepInElevator);
 		return numOfPeepInElevator;
 	}
 
@@ -267,11 +267,11 @@ public class ElevatorScene {
 	// thurfum ekki ad hugsa um int elevotor thad er bara 0 allavega i bili
 	
 	public void incremeantPeopleInElevator(int numOfPeepInElevator) {
-		this.numOfPeepInElevator++;
+		ElevatorScene.numOfPeepInElevator++;
 	}
 	
 	public void decreamentPeopleInElevator(int numOfPeepInElevator) {
-		this.numOfPeepInElevator--;
+		ElevatorScene.numOfPeepInElevator--;
 	}
 
 }

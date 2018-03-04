@@ -24,42 +24,49 @@ public class Elevator implements Runnable {
             }
             System.out.println(currFloor);
             ElevatorScene.numOfFloor = currFloor;
-
-	        for (int i = 0; i < ElevatorScene.maxCapacity - ElevatorScene.scene.getNumberOfPeopleInElevator(0); i++) {
+            int spaces1 = ElevatorScene.maxCapacity - ElevatorScene.scene.getNumberOfPeopleInElevator(0);
+	        for (int i = 0; i < spaces1 ; i++) {
 	            ElevatorScene.semaphoresArrIn[currFloor].release();
             }
 
             try {
-                Thread.sleep(ElevatorScene.VISUALIZATION_WAIT_TIME);
+                Thread.sleep(ElevatorScene.VISUALIZATION_WAIT_TIME/4);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
 
-
-
-            currFloor++;
-            ElevatorScene.numOfFloor = currFloor;
-
-            for (int i = 0; i < ElevatorScene.maxCapacity - ElevatorScene.scene.getNumberOfPeopleInElevator(0); i++) {
+            spaces1 = ElevatorScene.maxCapacity - ElevatorScene.scene.getNumberOfPeopleInElevator(0);
+            for (int i = 0; i < spaces1; i++) {
                 try {
-                    ElevatorScene.semaphoresArrIn[currFloor - 1].acquire();
+                    ElevatorScene.semaphoresArrIn[currFloor].acquire();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
 
             try {
-                Thread.sleep(ElevatorScene.VISUALIZATION_WAIT_TIME);
+                Thread.sleep(ElevatorScene.VISUALIZATION_WAIT_TIME/4);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
 
-            for (int i = 0; i < ElevatorScene.scene.getNumberOfPeopleInElevator(0); i++) {
-                ElevatorScene.semaphoresArrOut[currFloor - 1].release();
+
+            currFloor++;
+            ElevatorScene.numOfFloor = currFloor;
+
+            try {
+                Thread.sleep(ElevatorScene.VISUALIZATION_WAIT_TIME/4);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            int people = ElevatorScene.scene.getNumberOfPeopleInElevator(0);
+            for (int i = 0; i < people ; i++) {
+                ElevatorScene.semaphoresArrOut[currFloor].release();
             }
 
             try {
-                Thread.sleep(ElevatorScene.VISUALIZATION_WAIT_TIME);
+                Thread.sleep(ElevatorScene.VISUALIZATION_WAIT_TIME/4);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
