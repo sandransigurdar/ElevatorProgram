@@ -15,8 +15,8 @@
       <file leaf-file-name="Elevator.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/ru/usty/elevator/Elevator.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="211">
-              <caret line="16" column="12" lean-forward="true" selection-start-line="16" selection-start-column="12" selection-end-line="16" selection-end-column="12" />
+            <state relative-caret-position="173">
+              <caret line="60" column="68" lean-forward="false" selection-start-line="60" selection-start-column="68" selection-end-line="60" selection-end-column="68" />
               <folding />
             </state>
           </provider>
@@ -35,8 +35,8 @@
       <file leaf-file-name="ElevatorScene.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/ru/usty/elevator/ElevatorScene.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="145">
-              <caret line="172" column="0" lean-forward="false" selection-start-line="172" selection-start-column="0" selection-end-line="172" selection-end-column="0" />
+            <state relative-caret-position="257">
+              <caret line="36" column="55" lean-forward="false" selection-start-line="36" selection-start-column="55" selection-end-line="36" selection-end-column="55" />
               <folding>
                 <element signature="e#6204#6205#0" expanded="true" />
                 <element signature="e#6232#6233#0" expanded="true" />
@@ -70,8 +70,8 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/src/com/ru/usty/elevator/ElevatorMainProgram.java" />
-        <option value="$PROJECT_DIR$/src/com/ru/usty/elevator/ElevatorScene.java" />
         <option value="$PROJECT_DIR$/src/com/ru/usty/elevator/Person.java" />
+        <option value="$PROJECT_DIR$/src/com/ru/usty/elevator/ElevatorScene.java" />
         <option value="$PROJECT_DIR$/src/com/ru/usty/elevator/Elevator.java" />
       </list>
     </option>
@@ -273,12 +273,12 @@
       <workItem from="1519829317318" duration="10921000" />
       <workItem from="1519930015360" duration="1167000" />
       <workItem from="1520099883104" duration="7369000" />
-      <workItem from="1520171389750" duration="6573000" />
+      <workItem from="1520171389750" duration="8682000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="26696000" />
+    <option name="totallyTimeSpent" value="28805000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -352,14 +352,6 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/com/ru/usty/elevator/Elevator.java</url>
-          <line>56</line>
-          <properties />
-          <option name="timeStamp" value="9" />
-        </line-breakpoint>
-      </breakpoints>
       <option name="time" value="10" />
     </breakpoint-manager>
     <watches-manager />
@@ -523,8 +515,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/ru/usty/elevator/ElevatorScene.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="145">
-          <caret line="172" column="0" lean-forward="false" selection-start-line="172" selection-start-column="0" selection-end-line="172" selection-end-column="0" />
+        <state relative-caret-position="257">
+          <caret line="36" column="55" lean-forward="false" selection-start-line="36" selection-start-column="55" selection-end-line="36" selection-end-column="55" />
           <folding>
             <element signature="e#6204#6205#0" expanded="true" />
             <element signature="e#6232#6233#0" expanded="true" />
@@ -538,8 +530,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/ru/usty/elevator/Elevator.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="211">
-          <caret line="16" column="12" lean-forward="true" selection-start-line="16" selection-start-column="12" selection-end-line="16" selection-end-column="12" />
+        <state relative-caret-position="173">
+          <caret line="60" column="68" lean-forward="false" selection-start-line="60" selection-start-column="68" selection-end-line="60" selection-end-column="68" />
           <folding />
         </state>
       </provider>
