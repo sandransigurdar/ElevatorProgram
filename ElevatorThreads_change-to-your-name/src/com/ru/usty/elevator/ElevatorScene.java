@@ -24,7 +24,7 @@ public class ElevatorScene {
 	public static int numOfFloor;
 
 	//public static int floorArr[] = new int[ElevatorScene.scene.getNumberOfFloors()];
-	//public static Semaphore semaphoresArr[] = new Semaphore[4];
+
 
 	public static ElevatorScene scene;
 	public  static Semaphore personCountMutex;
@@ -39,6 +39,8 @@ public class ElevatorScene {
 	private int numberOfFloors;
 	private int numberOfElevators;
     private Thread elevatorThread = null;
+	public static Semaphore semaphoresArrIn[];
+	public static Semaphore semaphoresArrOut[];
 
 	ArrayList<Integer> personCount; //use if you want but
 									//throw away and
@@ -66,15 +68,25 @@ public class ElevatorScene {
             }
         }    
 	    //numOfPeepInElevator = 0;
-	    numOfFloor = 0;
+		semaphoresArrIn = new Semaphore[numberOfFloors];
+	    semaphoresArrOut = new Semaphore[numberOfFloors];
+
+		numOfFloor = 0;
 	   	 
         elevatorsMAyDie = false;
 		scene = this;
 		// Eftir af thad er kallad i restartScene er thetta adgengilegt alls stadar fra:
 		
 		// restarta badum semaphorum
-		semaphore1 = new Semaphore(0); // 0 er fj�ldi permita sem eru opin i upphafi
-		semaphoreOut = new Semaphore(0);
+		//semaphore1 = new Semaphore(0); // 0 er fj�ldi permita sem eru opin i upphafi
+		//semaphoreOut = new Semaphore(0);
+
+
+		for (int i = 0; i < numberOfFloors; i++) {
+			semaphoresArrIn[i] = new Semaphore(0);
+			semaphoresArrOut[i] = new Semaphore(0);
+		}
+
 		
         personCountMutex = new Semaphore(1);
         elevatorWaitMustex = new Semaphore(1);
@@ -157,7 +169,7 @@ public class ElevatorScene {
             e.printStackTrace();
         }
 		*/
-		//System.out.println(numOfPeepInElevator);
+		System.out.println(numOfPeepInElevator);
 		return numOfPeepInElevator;
 	}
 
@@ -191,7 +203,6 @@ public class ElevatorScene {
 	
 	//Base function: definition must not change, but add your code if needed
 	public int getNumberOfFloors() {
-		System.out.println(numberOfFloors);
 		return numberOfFloors;
 	}
 
