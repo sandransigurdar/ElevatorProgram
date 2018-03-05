@@ -34,7 +34,7 @@ public class ElevatorScene {
 
 	//TO SPEED THINGS UP WHEN TESTING,
 	//feel free to change this.  It will be changed during grading
-	public static final int VISUALIZATION_WAIT_TIME = 700;  //milliseconds
+	public static final int VISUALIZATION_WAIT_TIME = 600;  //milliseconds
 
 	private int numberOfFloors;
 	private int numberOfElevators;
@@ -66,14 +66,15 @@ public class ElevatorScene {
                     e.printStackTrace();
                 }
             }
-        }    
+        }
+		elevatorsMAyDie = false;
 	    //numOfPeepInElevator = 0;
 		semaphoresArrIn = new Semaphore[numberOfFloors];
 	    semaphoresArrOut = new Semaphore[numberOfFloors];
 
 		numOfFloor = 0;
 	   	 
-        elevatorsMAyDie = false;
+
 		scene = this;
 		// Eftir af thad er kallad i restartScene er thetta adgengilegt alls stadar fra:
 		
@@ -91,8 +92,8 @@ public class ElevatorScene {
         personCountMutex = new Semaphore(1);
         elevatorWaitMustex = new Semaphore(1);
         
-		Thread thread = new Thread(new Elevator()); // gera svipad fyrir Elevator klasann
-		thread.start();
+		elevatorThread = new Thread(new Elevator()); // gera svipad fyrir Elevator klasann
+		elevatorThread.start();
 
 		// Profa hvort Person thradurinn er ad gera thad sem hann a ad vera ad gera akkurat nuna
 		// en vid viljum ekki enda med thetta svona:
@@ -272,6 +273,16 @@ public class ElevatorScene {
 	
 	public void decreamentPeopleInElevator(int numOfPeepInElevator) {
 		ElevatorScene.numOfPeepInElevator--;
+	}
+
+	public void changeCurrentFloot(){
+		if(numOfFloor != numberOfFloors - 1) {
+			ElevatorScene.numOfFloor++;
+		}
+		else {
+			ElevatorScene.numOfFloor = 0;
+		}
+
 	}
 
 }

@@ -20,7 +20,6 @@ public class Person implements Runnable {
 
 		ElevatorScene.scene.decrementNumberOfPeopleWaitingAtFloor(src);
 		ElevatorScene.scene.incremeantPeopleInElevator(0);
-		// increment people in elevator sendum 0 med
 		
 		//aquire semaphore2
 		try {
@@ -29,11 +28,9 @@ public class Person implements Runnable {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		//ElevatorScene.semaphoresArrOut[Elevator.currFloor].release();
 		ElevatorScene.scene.decreamentPeopleInElevator(0);
 		ElevatorScene.scene.personExitsAtFloor(dst);
 
-		
 		System.out.println("Person Thread released");
 	}
 

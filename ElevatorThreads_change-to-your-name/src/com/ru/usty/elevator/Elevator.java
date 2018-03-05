@@ -11,70 +11,67 @@ public class Elevator implements Runnable {
 	}
 	**/
 
-	public static int currFloor = 0;
 	public void run() {
 		while (true) {
-			
+
 	        if (ElevatorScene.elevatorsMAyDie) {
 	            return;
 	        }
 
             try {
-                Thread.sleep(ElevatorScene.VISUALIZATION_WAIT_TIME/4);
+                Thread.sleep(ElevatorScene.VISUALIZATION_WAIT_TIME/5);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+
+
 
             int people = ElevatorScene.scene.getNumberOfPeopleInElevator(0);
-            ElevatorScene.semaphoresArrOut[currFloor].release(people);
+            ElevatorScene.semaphoresArrOut[ElevatorScene.scene.getCurrentFloorForElevator(0)].release(people);
+
 
             try {
-                Thread.sleep(ElevatorScene.VISUALIZATION_WAIT_TIME/4);
+                Thread.sleep(ElevatorScene.VISUALIZATION_WAIT_TIME/5);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+
+
+            people = ElevatorScene.scene.getNumberOfPeopleInElevator(0);
+            try {
+                ElevatorScene.semaphoresArrOut[ElevatorScene.scene.getCurrentFloorForElevator(0)].acquire(people);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            try {
+                Thread.sleep(ElevatorScene.VISUALIZATION_WAIT_TIME/5);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
 
             int spaces1 = ElevatorScene.maxCapacity - ElevatorScene.scene.getNumberOfPeopleInElevator(0);
-            /*people = ElevatorScene.scene.getNumberOfPeopleInElevator(0);
+            ElevatorScene.semaphoresArrIn[ElevatorScene.scene.getCurrentFloorForElevator(0)].release(spaces1);
             try {
-                ElevatorScene.semaphoresArrIn[currFloor].acquire(spaces1);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }*/
-
-            ElevatorScene.semaphoresArrIn[currFloor].release(spaces1);
-
-            try {
-                Thread.sleep(ElevatorScene.VISUALIZATION_WAIT_TIME/4);
+                Thread.sleep(ElevatorScene.VISUALIZATION_WAIT_TIME/5);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+
 
             spaces1 = ElevatorScene.maxCapacity - ElevatorScene.scene.getNumberOfPeopleInElevator(0);
             try {
-                ElevatorScene.semaphoresArrIn[currFloor].acquire(spaces1);
+                ElevatorScene.semaphoresArrIn[ElevatorScene.scene.getCurrentFloorForElevator(0)].acquire(spaces1);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-
             try {
-                Thread.sleep(ElevatorScene.VISUALIZATION_WAIT_TIME/4);
+                Thread.sleep(ElevatorScene.VISUALIZATION_WAIT_TIME/5);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
 
-            changeFloor(currFloor);
-            ElevatorScene.numOfFloor = currFloor;
+            ElevatorScene.scene.changeCurrentFloot();
         }
 	}
-
-    public void changeFloor(int floor) {
-        if (currFloor == ElevatorScene.scene.getNumberOfFloors() - 1) {
-            Elevator.currFloor = 0;
-        }
-        else {
-            Elevator.currFloor++;
-        }
-
-    }
 }
